@@ -1,9 +1,9 @@
 version: '3'
 services:
   web:
-    build: ./web  # dockerfileのパス
+    build: ./web  #dockerfileのパス
     volumes:
-      - ./web/conf:/etc/nginx/conf.d  # マウント、ホスト:コンテナ
+      - ./web/conf:/etc/nginx/conf.d  #マウント、ホスト:コンテナ
       - ./web/uwsgi_params:/etc/nginx/uwsgi_params
       - ./static:/static
     ports:
@@ -13,21 +13,23 @@ services:
 
   db:
     build: ./db
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  # 実行時のコマンド
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  #実行時のコマンド
     ports:
-      - "3306:3306"
+      - "3306:3306" #ポート指定、ホスト:コンテナ
     environment:  #コンテナ内の環境変数を指定
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
       TZ: 'Asia/Tokyo'
     volumes:
-      - ./db:/var/lib/mysql
+      - ./db/mysql:/var/lib/mysql #マウント、ホスト:コンテナ
   
   app:
     build: ./app
-    command: uwsgi --socket :8001 --module app.wsgi --py-autoreload 1 --logto /tmp/mylog.log
+    command: uwsgi --socket :8001 --module app.wsgi --py-autoreload 1 --logto /tmp/mylog.log  #uwsgi起動、socketで通信
     volumes: 
-      - ./src:/code
+      - ./src:/code #マウント、ホスト:コンテナ
       - ./static:/static
     expose:
       - "8001"
