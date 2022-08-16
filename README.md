@@ -15,7 +15,7 @@ docker exec -it [コンテナのID] bash
 
 djangoプロジェクトを作成
 ```
-
+django-admin startproject [app]
 ```
 
 settings.pyでmysqlの設定を追記。
