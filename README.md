@@ -18,8 +18,24 @@ djangoプロジェクトを作成
 
 ```
 
-settings.pyでmysqlの設定を行ってください。
+settings.pyでmysqlの設定を追記。
+```
+import pymysql
 
+# connect mysql
+pymysql.install_as_MySQLdb()
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'database',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'db',
+        'PORT': '3306',
+    }
+}
+```
 
 以下のurlでdjangoアプリが立ち上がっていたら成功です。
 http://localhost:8000
