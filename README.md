@@ -15,7 +15,7 @@ docker exec -it [コンテナのID] bash
 
 djangoプロジェクトを作成
 ```
-django-admin startproject [app]
+django-admin startproject [app] .
 ```
 
 settings.pyでmysqlの設定を追記。
@@ -35,7 +35,9 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+STATIC_ROOT = '/static'
 ```
 
-以下のurlでdjangoアプリが立ち上がっていたら成功です。
+以下のurlでdjangoアプリが立ち上がっていたら成功。
 http://localhost:8000
