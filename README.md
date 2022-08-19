@@ -15,10 +15,10 @@ docker exec -it [コンテナのID] bash
 
 djangoプロジェクトを作成
 ```
-django-admin startproject [app] .
+django-admin startproject [config] .
 ```
 
-settings.pyでmysqlの設定を追記。
+settings.py修正。
 ```
 import pymysql
 
@@ -35,6 +35,10 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+LANGUAGE_CODE = 'ja'
+
+TIME_ZONE = 'Asia/Tokyo'
 
 STATIC_ROOT = '/static'
 ```
