@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.10.6
 ENV PYTHONUNBUFFERED 1
 #/codeディレクトリ作成
 RUN mkdir /code
@@ -7,6 +7,6 @@ WORKDIR /code
 # ローカルのrequirements.txtをコンテナ内の/code/にコピー
 ADD requirements.txt /code/
 # コマンド実行
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 ADD . /code/

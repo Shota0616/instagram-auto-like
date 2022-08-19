@@ -1,18 +1,20 @@
 version: '3'
 services:
   web:
-    build: ./web  #dockerfileのパス
+    image: nginx:1.23.1
     volumes:
-      - ./web/conf:/etc/nginx/conf.d  #マウント、ホスト:コンテナ
+      #設定ファイル
+      - ./web/conf/:/etc/nginx/conf.d
       - ./web/uwsgi_params:/etc/nginx/uwsgi_params
+      #staticファイル
       - ./static:/static
     ports:
-      - "8000:8000" #ポート指定、ホスト:コンテナ
+      - "8000:8000"
     depends_on:
       - app  #appに依存
 
   db:
-    build: ./db
+    image: mariadb:10.8.3
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  #実行時のコマンド
     ports:
       - "3306:3306" #ポート指定、ホスト:コンテナ
@@ -23,13 +25,13 @@ services:
       MYSQL_PASSWORD: password
       TZ: 'Asia/Tokyo'
     volumes:
-      - ./db/mysql:/var/lib/mysql #マウント、ホスト:コンテナ
+      - ./db/mysql/:/var/lib/mysql/
   
   app:
     build: ./app
-    command: uwsgi --socket :8001 --module app.wsgi --py-autoreload 1 --logto /tmp/mylog.log  #uwsgi起動、socketで通信
+    command: uwsgi --ini ./web/uwsgi.ini
     volumes: 
-      - ./src:/code #マウント、ホスト:コンテナ
+      - ./app:/code
       - ./static:/static
     expose:
       - "8001"
