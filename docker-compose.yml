@@ -34,8 +34,10 @@ services:
   back:
     build: ./back
     container_name: back
-    command: uwsgi --ini ./web/uwsgi.ini
+    # command: uwsgi --ini /etc/uwsgi/uwsgi.ini
+    # command: uwsgi --ini ./back/conf/uwsgi.ini
     volumes: 
+      - ./back/conf/:/etc/uwsgi/
       - ./back:/opt/app
       - ./web/static:/static
     expose:
@@ -46,24 +48,22 @@ services:
     networks:
       - default
 
-  front:
-  container_name: front
-    build:
-      context: ./front
-      dockerfile: ./Dockerfile
-    command: 'sh /code/scripts/start.sh'
-    volumes:
-      - ./front:/code
-      - ./front/node_modules:/code/node_modules
-    ports:
-      - "8080:8080"
-    expose:
-      -  "3000"
-    #tty: true
-    depends_on:
-      -  back
-    networks:
-      - default
+  # front:
+  #   container_name: front
+  #   build: ./front
+  #   # command: 'sh /code/scripts/start.sh'
+  #   volumes:
+  #     - ./front:/code
+  #     # - ./front/node_modules:/code/node_modules
+  #   ports:
+  #     - "8080:8080"
+  #   expose:
+  #     -  "3000"
+  #   #tty: true
+  #   depends_on:
+  #     -  back
+  #   networks:
+  #     - default
 
 networks:
   default:
