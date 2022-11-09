@@ -34,10 +34,8 @@ services:
   back:
     build: ./back
     container_name: back
-    # command: uwsgi --ini /etc/uwsgi/uwsgi.ini
-    # command: uwsgi --ini ./back/conf/uwsgi.ini
     volumes: 
-      - ./back/conf/:/etc/uwsgi/
+      - ./web/uwsgi.ini:/etc/uwsgi/uwsgi.ini
       - ./back:/opt/app
       - ./web/static:/static
     expose:
