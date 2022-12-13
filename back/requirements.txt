@@ -3,3 +3,6 @@ uwsgi==2.0.20
 PyMySQL==1.0.2
 djangorestframework==3.13.1
 django-filter==22.1
+django-allauth==0.51.0
+django-rest-auth==0.9.5
+django-widget-tweaks==1.4.12
