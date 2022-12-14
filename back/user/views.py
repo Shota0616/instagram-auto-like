@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from allauth.account import views
 
 from user.models import MyUser
-from user.forms import ProfileForm
+from user.forms import ProfileForm, SignupForm
 
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         user_data = MyUser.objects.get(id=request.user.id)
@@ -13,7 +16,7 @@ class ProfileView(View):
             'user_data': user_data,
         })
 
-class ProfileEditView(View):
+class ProfileEditView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user_data = MyUser.objects.get(id=request.user.id)
         form = ProfileForm(
@@ -40,3 +43,18 @@ class ProfileEditView(View):
         return render(request, 'user/profile.html', {
             'form': form
         })
+
+class SignupView(views.SignupView):
+    template_name = 'user/signup.html'
+    form_class = SignupForm
+
+class LoginView(views.LoginView):
+    template_name = 'user/login.html'
+
+class LogoutView(views.LogoutView):
+    template_name = 'user/logout.html'
+
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            self.logout()
+        return redirect('/')
