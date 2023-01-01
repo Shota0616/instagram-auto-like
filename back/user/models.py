@@ -46,13 +46,15 @@ class MyUser(AbstractBaseUser):
     )
     first_name = models.CharField(('姓'), max_length=30)
     last_name = models.CharField(('名'), max_length=30)
+    # upload_to:upload先をimagesに指定, blankとnullをtrue指定
+    profile_image = models.ImageField(upload_to='images', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email

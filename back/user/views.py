@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 from allauth.account import views
+from allauth.account import forms
 
 from user.models import MyUser
-from user.forms import ProfileForm, SignupForm
+from user.forms import ProfileForm, SignupForm, ResetPasswordForm, ResetPasswordKeyForm
+
 
 class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         user_data = MyUser.objects.get(id=request.user.id)
 
-        return render(request, 'user/profile.html', {
+        return render(request, 'account/profile.html', {
             'user_data': user_data,
         })
 
@@ -27,7 +30,7 @@ class ProfileEditView(LoginRequiredMixin, View):
             }
         )
 
-        return render(request, 'user/profile_edit.html', {
+        return render(request, 'account/profile_edit.html', {
             'form': form
         })
 
@@ -40,21 +43,51 @@ class ProfileEditView(LoginRequiredMixin, View):
             user_data.save()
             return redirect('profile')
 
-        return render(request, 'user/profile.html', {
+        return render(request, 'account/profile.html', {
             'form': form
         })
 
-class SignupView(views.SignupView):
-    template_name = 'user/signup.html'
-    form_class = SignupForm
+# allauthのviewをオーバーライド
+# class SignupView(views.SignupView):
+#     template_name = 'account/signup.html'
+#     form_class = SignupForm
+#     success_url = reverse_lazy('account_login')
 
-class LoginView(views.LoginView):
-    template_name = 'user/login.html'
+# class ConfirmEmailView(views.ConfirmEmailView):
+#     template_name = "account/email_confirm.html"
 
-class LogoutView(views.LogoutView):
-    template_name = 'user/logout.html'
+# class LoginView(views.LoginView):
+#     template_name = 'account/login.html'
 
-    def post(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            self.logout()
-        return redirect('/')
+# class LogoutView(views.LogoutView):
+#     template_name = 'account/logout.html'
+
+#     def post(self, *args, **kwargs):
+#         if self.request.user.is_authenticated:
+#             self.logout()
+#         return redirect('/')
+
+# class PasswordChangeView(views.PasswordChangeView):
+#     template_name = 'account/password_change.html'
+#     success_url = reverse_lazy('')
+#     form_class = forms.ChangePasswordForm
+
+# class PasswordResetView(views.PasswordResetView):
+#     """パスワード変更用URLの送付ページ"""
+#     # subject_template_name = 'register/mail_template/password_reset/subject.txt'
+#     # email_template_name = 'register/mail_template/password_reset/message.txt'
+#     template_name = 'account/password_reset.html'
+#     form_class = ResetPasswordForm
+#     # success_url = reverse_lazy('user:password_reset_done')
+
+
+# class PasswordResetDoneView(views.PasswordResetDoneView):
+#     """パスワード変更用URLを送りましたページ"""
+#     template_name = 'account/password_reset_done.html'
+
+# class PasswordResetFromKeyView(views.PasswordResetFromKeyView):
+#     template_name = 'account/password_reset_from_key.html'
+#     form_class = ResetPasswordKeyForm
+
+# class PasswordResetFromKeyDoneView(views.PasswordResetFromKeyDoneView):
+#     template_name = "account/password_reset_from_key_done.html"

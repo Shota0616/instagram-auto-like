@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, ResetPasswordKeyForm
 
 from .models import MyUser
 
@@ -23,13 +23,51 @@ class ProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30, label='姓')
     last_name = forms.CharField(max_length=30, label='名')
 
-class SignupForm(SignupForm):
+
+# allauthForm
+class MyCustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='姓')
     last_name = forms.CharField(max_length=30, label='名')
+    avatar = forms.ImageField()
 
-    def save(self, request):
-        user = super(SignupForm, self).save(request)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.save()
-        return user
+
+    # def save(self, request):
+    #     user = super(MyCustomSignupForm, self).save(request)
+    #     user.first_name = self.cleaned_data['first_name']
+    #     user.last_name = self.cleaned_data['last_name']
+    #     user.save()
+    #     return user
+
+# class LoginForm(LoginForm):
+#     pass
+
+# class ResetPasswordForm(ResetPasswordForm):
+#     pass
+
+
+# class ResetPasswordKeyForm(ResetPasswordKeyForm):
+#     pass
+
+# class ChangePasswordForm(authforms.ChangePasswordForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         for field in self.fields.values():
+#             field.widget.attrs['class'] = 'form-control'
+
+#     oldpassword = authforms.PasswordField(
+#         label=("Current Password"), autocomplete="current-password"
+#     )
+#     password1 = authforms.SetPasswordField(label=("New Password"))
+#     password2 = authforms.PasswordField(label=("New Password (again)"))
+
+#     def __init__(self, *args, **kwargs):
+#         super(ChangePasswordForm, self).__init__(*args, **kwargs)
+#         self.fields["password1"].user = self.user
+
+#     def clean_oldpassword(self):
+#         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
+#             raise forms.ValidationError(("Please type your current password."))
+#         return self.cleaned_data["oldpassword"]
+
+#     def save(self):
+#         get_adapter().set_password(self.user, self.cleaned_data["password1"])

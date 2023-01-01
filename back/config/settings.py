@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.amazon',
     'allauth.socialaccount.providers.apple',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.instagram',
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -139,7 +141,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# 追加 mediaを扱うための設定
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# 追加
+IMAGE_URL = '/images/'
+IMAGE_ROOT = os.path.join(BASE_DIR, 'images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -154,8 +163,9 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # django-allauth
 SITE_ID = 1 
 
+LOGIN_URL = '/account/login/'
 # ログイン/ログアウト時のリダイレクト先
-ACCOUNT_LOGOUT_REDIRECT_URL = '/user/login/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
 # 認証にemailを使用
@@ -175,3 +185,41 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+# allauthのFORM上書き
+ACCOUNT_FORMS = {
+    'login': 'user.forms.LoginForm',
+    'signup': 'user.forms.MyCustomSignupForm',
+    'add_email': 'user.forms.AddEmailForm',
+    'change_password': 'user.forms.ChangePasswordForm',
+    'set_password': 'user.forms.SetPasswordForm',
+    'reset_password': 'user.forms.ResetPasswordForm',
+    'reset_password_from_key': 'user.forms.ResetPasswordKeyForm',
+    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+
+#signupformからの情報をcustomusermodelに保存するためのアダプタ
+#ACCOUNT_ADAPTER = 'user.adapter.AccountAdapter'
+
+# ソーシャルアカウントログイン
+# SOCIALACCOUNT_PROVIDERS = {
+#     "google": {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         "APP": {
+#             "client_id": "123",
+#             "secret": "456",
+#             "key": ""
+#         },
+#         # These are provider-specific settings that can only be
+#         # listed here:
+#         "SCOPE": [
+#             "profile",
+#             "email",
+#         ],
+#         "AUTH_PARAMS": {
+#             "access_type": "online",
+#         }
+#     }
+# }
