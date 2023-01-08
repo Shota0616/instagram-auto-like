@@ -26,17 +26,20 @@ class ProfileForm(forms.Form):
 
 # allauthForm
 class MyCustomSignupForm(SignupForm):
+    # class Meta:
+    #     model = MyUser
+    #     fields = ['first_name', 'last_name', 'profile_image',]
     first_name = forms.CharField(max_length=30, label='姓')
     last_name = forms.CharField(max_length=30, label='名')
-    avatar = forms.ImageField()
+    profile_image = forms.ImageField(required=False)
 
-
-    # def save(self, request):
-    #     user = super(MyCustomSignupForm, self).save(request)
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     user.save()
-    #     return user
+    def save(self, request):
+        user = super(MyCustomSignupForm, self).save(request)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.profile_image = self.cleaned_data['profile_image']
+        user.save()
+        return user
 
 # class LoginForm(LoginForm):
 #     pass

@@ -6,7 +6,7 @@ services:
     volumes:
       - ./web/conf/:/etc/nginx/conf.d
       - ./web/uwsgi_params:/etc/nginx/uwsgi_params
-      - ./web/static:/static
+      - ./web/static:/var/www/html/static
     ports:
       - "8000:8000"
     depends_on:
@@ -38,7 +38,8 @@ services:
     volumes: 
       - ./web/uwsgi.ini:/etc/uwsgi/uwsgi.ini
       - ./back:/opt/app
-      - ./web/static:/static
+      - ./web/static:/opt/app/static
+      - ./back/media/images:/opt/app/media/images
     expose:
       - "8001"
     depends_on:
