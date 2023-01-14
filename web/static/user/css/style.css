@@ -55,23 +55,8 @@
     box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   }
 
-  .card-pwd-change {
-    max-width: 700px;
-    border: 0;
-    border-radius: 1rem;
-    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .password_change{
-    width: 100%;
-  }
-
-  .pwd_change_th{
-    width: 50%;
-  }
-
-  .pwd_change_td{
-    width: 50%;
+  .password-reset-done {
+    
   }
   
   .card-title {

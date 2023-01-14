@@ -185,7 +185,7 @@ AUTHENTICATION_BACKENDS = [
 
 # allauthのFORM上書き
 ACCOUNT_FORMS = {
-    'login': 'user.forms.LoginForm',
+    'login': 'user.forms.MyLoginForm',
     'signup': 'user.forms.MyCustomSignupForm',
     'add_email': 'user.forms.AddEmailForm',
     'change_password': 'user.forms.ChangePasswordForm',
