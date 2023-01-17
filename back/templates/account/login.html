@@ -41,13 +41,13 @@
           <tr>
           <th class="header">メールアドレス</th>
             <td class="data">
-                {{ form.email }}
+                {{ form.login | add_class:'form-control' }}
             </td>
           </tr>
           <tr>
           <th class="header">パスワード</th>
             <td class="data">
-                {{ form.password }}
+                {{ form.password | add_class:'form-control' }}
             </td>
           </tr>
         </tbody>

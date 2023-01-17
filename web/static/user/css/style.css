@@ -56,7 +56,7 @@
   }
 
   .password-reset-done {
-    
+
   }
   
   .card-title {
@@ -78,4 +78,11 @@
   
   .form-label-group input {
     border-radius: 2rem;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
   }

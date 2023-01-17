@@ -17,13 +17,13 @@
           <tr>
           <th class="header">名前</th>
               <td class="data form_wrap form_wrap-2">
-                  {{ form.first_name }} {{ form.last_name }}
+                  {{ form.first_name | add_class:'form-control' }} {{ form.last_name | add_class:'form-control' }}
               </td>
           </tr>
           <tr>
           <th class="header">メールアドレス</th>
               <td class="data">
-                  {{ form.email }}
+                  {{ form.email | add_class:'form-control' }}
               </td>
           </tr>
           <th class="header">プロフィール画像</th>

@@ -7,8 +7,10 @@ services:
       - ./web/conf/:/etc/nginx/conf.d
       - ./web/uwsgi_params:/etc/nginx/uwsgi_params
       - ./web/static:/var/www/html/static
+      #- ./web/ssl:/etc/ssl/app
     ports:
       - "8000:8000"
+      #- "443:443"
     depends_on:
       - back
     networks:

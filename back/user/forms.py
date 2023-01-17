@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, ResetPasswordKeyForm
+from allauth.account.forms import SignupForm, LoginForm, ResetPasswordForm, ResetPasswordKeyForm, PasswordField
 
 from .models import MyUser
 
@@ -26,38 +27,46 @@ class ProfileForm(forms.Form):
 
 # allauthForm
 class MyCustomSignupForm(SignupForm):
+
+    class Meta(UserCreationForm.Meta):
+        model   = MyUser
+        fields  = ("first_name","last_name","email","profile_image")
+
+# class MyCustomSignupForm(SignupForm):
     # class Meta:
     #     model = MyUser
     #     fields = ['first_name', 'last_name', 'profile_image',]
-    first_name = forms.CharField(max_length=30, label='姓',
-        widget=forms.TextInput(
-        attrs={'placeholder':'姓', 'class':'form-control'}))
-    last_name = forms.CharField(max_length=30, label='名',
-        widget=forms.TextInput(
-        attrs={'placeholder':'名', 'class':'form-control'}))
-    email = forms.EmailField(max_length=255,
-        widget=forms.TextInput(
-        attrs={'type':'email', 'name':'login', "autocomplete":"email", 'placeholder':'メールアドレス', 'class':'form-control'}))
-    profile_image = forms.ImageField(required=False)
-    password1 = forms.PasswordField(max_length=128,)
-    password2 = forms.PasswordField(max_length=128,)
+    
+    # first_name = forms.CharField(max_length=30, label='姓',
+    #     widget=forms.TextInput(
+    #     attrs={'placeholder':'姓', 'class':'form-control'}))
+    # last_name = forms.CharField(max_length=30, label='名',
+    #     widget=forms.TextInput(
+    #     attrs={'placeholder':'名', 'class':'form-control'}))
+    # email = forms.EmailField(max_length=255,
+    #     widget=forms.TextInput(
+    #     attrs={'type':'email', 'name':'login', "autocomplete":"email", 'placeholder':'メールアドレス', 'class':'form-control'}))
+    # profile_image = forms.ImageField(required=False)
+    # password1 = forms.CharField(max_length=128,)
+    # password2 = forms.CharField(max_length=128,)
 
-    def save(self, request):
-        user = super(MyCustomSignupForm, self).save(request)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.profile_image = self.cleaned_data['profile_image']
-        user.save()
-        return user
+    # def save(self, request):
+    #     user = super(MyCustomSignupForm, self).save(request)
+    #     user.first_name = self.cleaned_data['first_name']
+    #     user.last_name = self.cleaned_data['last_name']
+    #     user.profile_image = self.cleaned_data['profile_image']
+    #     user.save()
+    #     return user
 
-class MyLoginForm(LoginForm):
-    email = forms.EmailField(max_length=255,
-        widget=forms.TextInput(
-        attrs={'type':'email', 'name':'login', "autocomplete":"email", 'placeholder':'メールアドレス', 'class':'form-control'}))
-    password = forms.PasswordField(max_length=128,
-        widget=forms.TextInput(
-        attrs={'autocomplete':'current-password', 'placeholder':'パスワード', 'class':'form-control'}))
-    remember = forms.BooleanField(label=("ログイン状態を保持する"), required=False)
+# class MyLoginForm(LoginForm):
+#     pass
+    # email = forms.EmailField(max_length=255,
+    #     widget=forms.TextInput(
+    #     attrs={'type':'email', 'name':'login', "autocomplete":"email", 'placeholder':'メールアドレス', 'class':'form-control'}))
+    # password = PasswordField(max_length=128,
+    #     widget=forms.TextInput(
+    #     attrs={'autocomplete':'current-password', 'placeholder':'パスワード', 'class':'form-control'}))
+    # remember = forms.BooleanField(label=("ログイン状態を保持する"), required=False)
 
 # class LoginForm(LoginForm):
 #     pass
