@@ -7,7 +7,7 @@ from allauth.account import views
 from allauth.account import forms
 
 from user.models import MyUser
-from user.forms import ProfileForm, SignupForm, ResetPasswordForm, ResetPasswordKeyForm
+from user.forms import ProfileForm, MyCustomSignupForm, ResetPasswordForm, ResetPasswordKeyForm
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -48,10 +48,15 @@ class ProfileEditView(LoginRequiredMixin, View):
         })
 
 # allauthのviewをオーバーライド
-# class SignupView(views.SignupView):
-#     template_name = 'account/signup.html'
-#     form_class = SignupForm
-#     success_url = reverse_lazy('account_login')
+class SignupView(views.SignupView, MyCustomSignupForm):
+    
+    def signup(request):
+        form = MyCustomSignupForm(request.POST or None)
+        if form.is_valid():
+            # Do something with the form data
+            pass
+        return render(request, 'signup.html', {'form': form})
+
 
 # class ConfirmEmailView(views.ConfirmEmailView):
 #     template_name = "account/email_confirm.html"

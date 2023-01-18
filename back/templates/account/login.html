@@ -52,6 +52,11 @@
           </tr>
         </tbody>
       </table>
+      {% for error in form.non_field_errors %}
+      <ul class="error-message-card">
+        <li class="error-message">{{ error }}</li>
+      </ul>
+      {% endfor %}
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}

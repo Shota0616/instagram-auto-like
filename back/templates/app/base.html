@@ -52,14 +52,3 @@
     {% block extra_js %} {% endblock %}
   </body>
 </html>
-
-{% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-{% endif %}
