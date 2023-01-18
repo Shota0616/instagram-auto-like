@@ -9,4 +9,5 @@ RUN pip3 install -r requirements.txt
 RUN apt update
 RUN apt install -y vim
 COPY . ${WORKDIR}
+#コンテナ作成時に実行されるコマンド
 CMD ["uwsgi", "--ini", "/etc/uwsgi/uwsgi.ini"]

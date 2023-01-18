@@ -5,8 +5,13 @@
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
-
+<div class="card card-profile my-5 mx-auto">
+  <div class="card-body">
+    <h5 class="card-title text-center">確認用のメールアドレスを送信しました。</h5>
+    <div class="button mx-auto">
+      <a class="btn btn-lg btn-warning btn-block" type="submit" href="/">トップに戻る</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

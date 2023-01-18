@@ -143,12 +143,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# 追加 mediaを扱うための設定
+# media設定
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# 追加
-IMAGE_URL = '/images/'
-IMAGE_ROOT = os.path.join(BASE_DIR, 'images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -170,10 +167,9 @@ LOGIN_REDIRECT_URL = '/'
 
 # 認証にemailを使用
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
 # ユーザ名は使用しない
 ACCOUNT_USERNAME_REQUIRED = False
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # ユーザ登録時に確認メールを送信するか(none=送信しない, mandatory=送信する)
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # ユーザ登録にメルアド必須にする
@@ -188,13 +184,13 @@ AUTHENTICATION_BACKENDS = [
 
 # allauthのFORM上書き
 ACCOUNT_FORMS = {
-    'login': 'user.forms.LoginForm',
+    'login': 'allauth.account.forms.LoginForm',
     'signup': 'user.forms.MyCustomSignupForm',
-    'add_email': 'user.forms.AddEmailForm',
-    'change_password': 'user.forms.ChangePasswordForm',
-    'set_password': 'user.forms.SetPasswordForm',
-    'reset_password': 'user.forms.ResetPasswordForm',
-    'reset_password_from_key': 'user.forms.ResetPasswordKeyForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
 }
 
