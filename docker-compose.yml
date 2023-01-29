@@ -30,7 +30,7 @@ services:
       TZ: 'Asia/Tokyo'
     volumes:
       - ./db/mysql/:/var/lib/mysql/
-      - ./db/etc/.bashrc:/root/.bashrc
+      - ./db/.bashrc:/root/.bashrc
     networks:
       - default
   
