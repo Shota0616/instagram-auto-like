@@ -21,18 +21,11 @@ class UserForm(forms.ModelForm):
         # フィールド名指定
         labels = {'username':"ユーザー名",'email':"Eメール"}
 
+        
 class ProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30, label='姓')
     last_name = forms.CharField(max_length=30, label='名')
 
-
-# allauthForm
-# class MyCustomSignupForm(SignupForm):
-#     pass
-
-    # class Meta(UserCreationForm.Meta):
-    #     model   = MyUser
-    #     fields  = ("first_name","last_name","email","profile_image")
 
 class MyCustomSignupForm(SignupForm, UserCreationForm):
     
@@ -68,55 +61,3 @@ class MyCustomSignupForm(SignupForm, UserCreationForm):
             raise forms.ValidationError("パスワードが一致しません。")
         validate_password(password2, self.instance)
         return password2
-    
-    # def save(self, request):
-    #     user = super(MyCustomSignupForm, self).save(request)
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     user.profile_image = self.cleaned_data['profile_image']
-    #     user.save()
-    #     return user
-
-# class MyLoginForm(LoginForm):
-#     pass
-    # email = forms.EmailField(max_length=255,
-    #     widget=forms.TextInput(
-    #     attrs={'type':'email', 'name':'login', "autocomplete":"email", 'placeholder':'メールアドレス', 'class':'form-control'}))
-    # password = PasswordField(max_length=128,
-    #     widget=forms.TextInput(
-    #     attrs={'autocomplete':'current-password', 'placeholder':'パスワード', 'class':'form-control'}))
-    # remember = forms.BooleanField(label=("ログイン状態を保持する"), required=False)
-
-# class LoginForm(LoginForm):
-#     pass
-
-# class ResetPasswordForm(ResetPasswordForm):
-#     pass
-
-
-# class ResetPasswordKeyForm(ResetPasswordKeyForm):
-#     pass
-
-# class ChangePasswordForm(authforms.ChangePasswordForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         for field in self.fields.values():
-#             field.widget.attrs['class'] = 'form-control'
-
-#     oldpassword = authforms.PasswordField(
-#         label=("Current Password"), autocomplete="current-password"
-#     )
-#     password1 = authforms.SetPasswordField(label=("New Password"))
-#     password2 = authforms.PasswordField(label=("New Password (again)"))
-
-#     def __init__(self, *args, **kwargs):
-#         super(ChangePasswordForm, self).__init__(*args, **kwargs)
-#         self.fields["password1"].user = self.user
-
-#     def clean_oldpassword(self):
-#         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-#             raise forms.ValidationError(("Please type your current password."))
-#         return self.cleaned_data["oldpassword"]
-
-#     def save(self):
-#         get_adapter().set_password(self.user, self.cleaned_data["password1"])
