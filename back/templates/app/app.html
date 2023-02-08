@@ -7,23 +7,29 @@
 
 <div class="card card-profile my-5 mx-auto">
   <div class="card-body">
-    <h5 class="card-title text-center">いいね自動実行</h5>
+   <h5 class="card-title text-center">いいね自動実行（インスタグラム）</h5>
     <form class="login" method="POST" action="{% url 'confirm' %}">
       {% csrf_token %}
       <table class="profile_table mb-4">
         <tbody>
           <tr>
-          <th class="header">メールアドレス（インスタグラム）</th>
+          <th class="header">メールアドレス</th>
             <td class="data">
               {% render_field form.insta_email class="form-control" placeholder="メールアドレス" %}
             </td>
           </tr>
           <tr>
-          <th class="header">パスワード（インスタグラム）</th>
+          <th class="header">パスワード</th>
             <td class="data">
               {% render_field form.insta_password class="form-control" placeholder="パスワード" %}
             </td>
           </tr>
+          <tr>
+            <th class="header">繰り返し回数</th>
+              <td class="data">
+                {% render_field form.insta_num_of_times class="form-control" placeholder="繰り返し回数" %}
+              </td>
+            </tr>
         </tbody>
       </table>
       {% for error in form.non_field_errors %}

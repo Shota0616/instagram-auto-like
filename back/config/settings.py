@@ -124,6 +124,36 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# LOG_BASE_DIR = os.path.join("/var", "log", "django")
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     "formatters": {"simple": {"format": "%(asctime)s [%(levelname)s] %(message)s"}},
+#     "handlers": {
+#         "info": {
+#             "level": "INFO",
+#             "class": "logging.FileHandler",
+#             "filename": os.path.join(LOG_BASE_DIR, "django.log"),
+#             "formatter": "simple",
+#         },
+#         "warning": {
+#             "level": "WARNING",
+#             "class": "logging.FileHandler",
+#             "filename": os.path.join(LOG_BASE_DIR, "warning.log"),
+#             "formatter": "simple",
+#         },
+#         "error": {
+#             "level": "ERROR",
+#             "class": "logging.FileHandler",
+#             "filename": os.path.join(LOG_BASE_DIR, "error.log"),
+#             "formatter": "simple",
+#         },
+#     },
+#     "root": {
+#         "handlers": ["info", "warning", "error"],
+#         "level": "INFO",
+#     },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -219,3 +249,7 @@ ACCOUNT_FORMS = {
 #         }
 #     }
 # }
+
+# celery
+CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379/1')
+CELERY_RESULT_BACKEND = "django-db"
