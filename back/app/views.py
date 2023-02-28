@@ -6,11 +6,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver import ChromeOptions
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
+
+import chromedriver_autoinstaller
 from time import sleep
 import random
 
@@ -37,11 +40,12 @@ class AutoLikeConfirmView(FormView):
     template_name = 'app/confirm.html'
     form_class = InstaAutoForm
 
+    chromedriver_autoinstaller.install()
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     wait = WebDriverWait(driver=driver, timeout=30)
 
