@@ -27,12 +27,18 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app' %}">アプリ</a>
+          </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_signup' %}">新規登録</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app' %}">アプリ</a>
           </li>
           {% endif %}
         </ul>

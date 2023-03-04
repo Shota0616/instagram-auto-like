@@ -35,11 +35,11 @@ services:
     networks:
       default:
         ipv4_address: 192.168.0.102
-  
+
   back:
     build: ./back
     container_name: back
-    volumes: 
+    volumes:
       - ./web/uwsgi.ini:/etc/uwsgi/uwsgi.ini
       - ./back:/opt/app
       - ./web/static:/opt/app/static
@@ -50,7 +50,18 @@ services:
       - db
     networks:
       default:
-         ipv4_address: 192.168.0.103
+        ipv4_address: 192.168.0.103
+
+  chrome:
+    build: ./chrome
+    container_name: chrome
+    ports:
+      - "4444:4444"
+    expose:
+      - "4444"
+    networks:
+      default:
+        ipv4_address: 192.168.0.104
 
   # front:
   #   container_name: front
