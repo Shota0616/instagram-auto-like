@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="card card-profile my-5 mx-auto">
-    <div class="card-body">
+  <div class="card-body">
     <h5 class="card-title text-center">いいね自動実行</h5>
     <table class="profile_table mb-4">
     <tbody>
@@ -22,20 +22,14 @@
                 {{ form.insta_password.value }}
             </td>
         </tr>
-        <tr>
-        <th class="header">繰り返し回数</th>
-            <td class="data">
-                {{ form.insta_num_of_times.value }}
-            </td>
-        </tr>
     </tbody>
-    </table>
+    </table> 
     {% for error in form.non_field_errors %}
     <ul class="error-message-card">
     <li class="error-message">{{ error }}</li>
     </ul>
     {% endfor %}
-    </div>
+  </div>
 </div>
 
 {% endblock %}

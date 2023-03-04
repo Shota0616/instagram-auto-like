@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 from allauth.account import views
 from allauth.account import forms
 
-
 from user.models import MyUser
 from user.forms import ProfileForm, MyCustomSignupForm, ResetPasswordForm, ResetPasswordKeyForm
 

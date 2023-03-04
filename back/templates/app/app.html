@@ -6,42 +6,36 @@
 {% block content %}
 
 <div class="card card-profile my-5 mx-auto">
-    <div class="card-body">
-        <h5 class="card-title text-center">instagram auto</h5>
-        <form class="login" method="POST" action="{% url 'confirm' %}">
-        {% csrf_token %}
-        <table class="profile_table mb-4">
+  <div class="card-body">
+    <h5 class="card-title text-center">いいね自動実行</h5>
+    <form class="login" method="POST" action="{% url 'confirm' %}">
+      {% csrf_token %}
+      <table class="profile_table mb-4">
         <tbody>
-            <tr>
-                <th class="header">email or username or TEL</th>
-                <td class="data">
-                    {% render_field form.insta_email class="form-control" placeholder="メールアドレス" %}
-                </td>
-            </tr>
-            <tr>
-                <th class="header">password</th>
-                <td class="data">
-                    {% render_field form.insta_password class="form-control" placeholder="パスワード" %}
-                </td>
-            </tr>
-            <tr>
-                <th class="header">like num (max:1000)</th>
-                <td class="data">
-                    {% render_field form.insta_num_of_times class="form-control" placeholder="繰り返し回数" %}
-                </td>
-            </tr>
+          <tr>
+          <th class="header">メールアドレス（インスタグラム）</th>
+            <td class="data">
+              {% render_field form.insta_email class="form-control" placeholder="メールアドレス" %}
+            </td>
+          </tr>
+          <tr>
+          <th class="header">パスワード（インスタグラム）</th>
+            <td class="data">
+              {% render_field form.insta_password class="form-control" placeholder="パスワード" %}
+            </td>
+          </tr>
         </tbody>
-        </table>
-        {% for error in form.non_field_errors %}
-        <ul class="error-message-card">
-            <li class="error-message">{{ error }}</li>
-        </ul>
-        {% endfor %}
-        <div class="button mx-auto">
-            <button class="btn btn-lg btn-warning btn-block" type="submit">実行</button>
-        </div>
-        </form>
-    </div>
+      </table>
+      {% for error in form.non_field_errors %}
+      <ul class="error-message-card">
+        <li class="error-message">{{ error }}</li>
+      </ul>
+      {% endfor %}
+      <div class="button mx-auto">
+        <button class="btn btn-lg btn-warning btn-block" type="submit">実行</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
