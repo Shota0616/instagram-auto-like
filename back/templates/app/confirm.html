@@ -7,7 +7,7 @@
 
 <div class="card card-profile my-5 mx-auto">
   <div class="card-body">
-    <h5 class="card-title text-center">いいね自動実行</h5>
+    <h5 class="card-title text-center">以下の内容で実行しますか？</h5>
     <table class="profile_table mb-4">
     <tbody>
         <tr>
@@ -29,6 +29,14 @@
     <li class="error-message">{{ error }}</li>
     </ul>
     {% endfor %}
+    <form class="login" method="POST" action="{% url 'execution' %}">
+        {% csrf_token %}
+        <input type="hidden" name="email" value="{{ form.insta_email.value }}">
+        <input type="hidden" name="password" value="{{ form.insta_password.value }}">
+        <div class="button mx-auto">
+          <button class="btn btn-lg btn-warning btn-block" type="submit">実行</button>
+        </div>
+    </form>
   </div>
 </div>
 
