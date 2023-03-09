@@ -30,25 +30,26 @@ class AutoLikeView(FormView):
     def form_valid(self, form):
         return render(self.request, 'app/app.html', {'form': form})
 
-class AutoLikeConfirmView(FormView):
+class MainView(View):
     template_name = 'app/confirm.html'
     form_class = InstaAutoForm
 
-    def form_valid(self, form):
-        email = form.cleaned_data['insta_email']
-        password = form.cleaned_data['insta_password']
-        # num_of_times = form.cleaned_data['insta_num_of_times']
-        # main(form)
-        print("test2")
-        # self.test()
-        #return render(self.request, 'app/confirm.html', {'form': form})
-
-class MainView(View):
+    # def form_valid(self, form):
+    #     email = form.cleaned_data['insta_email']
+    #     password = form.cleaned_data['insta_password']
+    #     # num_of_times = form.cleaned_data['insta_num_of_times']
+    #     MainView.test(email, password)
+    #     return render(self.request, 'app/confirm.html', {'form': form})
 
     def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         MainView.test(email, password)
+        params = {
+            'email': email,
+            'password': password,
+        }
+        return render(self.request, 'app/confirm.html', params)
 
     @staticmethod
     def test(email, password):
@@ -57,7 +58,8 @@ class MainView(View):
         driver = MainView.conection_chrome()
         driver.get("https://github.com/Shota0616")
         print("testtest")
-        
+        driver.close()
+
 
     @staticmethod
     def conection_chrome():

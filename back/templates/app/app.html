@@ -15,13 +15,13 @@
           <tr>
           <th class="header">メールアドレス（インスタグラム）</th>
             <td class="data">
-              {% render_field form.insta_email class="form-control" placeholder="メールアドレス" %}
+              <input type="email" name="email" autocomplete="email" class="form-control">
             </td>
           </tr>
           <tr>
           <th class="header">パスワード（インスタグラム）</th>
             <td class="data">
-              {% render_field form.insta_password class="form-control" placeholder="パスワード" %}
+              <input type="password" name="password" class="form-control">
             </td>
           </tr>
         </tbody>
