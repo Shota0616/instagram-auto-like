@@ -58,6 +58,9 @@ services:
     ports:
       - "4444:4444"
       - "5900:5900"
+    volumes:
+      - ./chrome/dev/shm:/dev/shm
+      - ./chrome/.config/google-chrome:/home/seluser/.config/google-chrome
     networks:
       default:
         ipv4_address: 192.168.0.104

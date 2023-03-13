@@ -61,6 +61,8 @@ class MainView(View):
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
         # options.add_argument('--headless')
+        options.add_argument("--user-data-dir=/tmp/.com.google.Chrome.tl31A9/Default")
+        options.add_argument("--profile-directory=test_profile")
         options.add_argument('--disable-dev-shm-usage')
         driver = webdriver.Remote(
             command_executor="http://chrome:4444/wd/hub",
@@ -76,12 +78,11 @@ class MainView(View):
         # try:
         logger.info(f'{email}:処理開始')
         driver = MainView.conection_chrome()
-        wait = WebDriverWait(driver=driver, timeout=30)
+        wait = WebDriverWait(driver=driver, timeout=300)
         # 変数
         like_btn_class = '_aamw'
         # 他の変数（後でformから入力可能にするかも）
         tags = ['バイク', 'ドラッグスター']
-
         # ログイン実行
         MainView.insta_login(email, password)
         # タグの数を取得
@@ -92,7 +93,8 @@ class MainView(View):
         # タグごとにいいね実行
         for tag in tags:
             # タグ検索用
-            MainView.tag_search(driver, tag, email)
+            time.sleep(random.randint(2, 5))
+            MainView.tag_search(driver, wait, tag, email)
             time.sleep(random.randint(2, 5))
             i = i + 1
             logger.info(f'{email}:{i}個目のタグのいいね処理を開始します')
@@ -174,16 +176,28 @@ class MainView(View):
     #     return tagurllist
 
     @staticmethod
-    def tag_search(driver, tag, email):
+    def tag_search(driver, wait, tag, email):
         # 変数
         search_btn_class = 'svg[aria-label="検索"]'
         search_field_class = 'input[aria-label="検索語句"]'
-        time.sleep(random.randint(3, 6))
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,search_btn_class)))
         driver.find_element(By.CSS_SELECTOR,search_btn_class).click()
         time.sleep(random.randint(3, 6))
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR,search_field_class)))
         driver.find_element(By.CSS_SELECTOR,search_field_class).send_keys('#' + tag)
         time.sleep(random.randint(3, 6))
+
+
+        # search_btn_class = '//*[@id="mount_0_0_di"]/div/div/div[1]/div/div/div/div[1]/div[1]/div[1]/div/div/div[1]/div/div[2]/div[2]/div/a/div/div/div/div'
+        # search_field_class = 'input[aria-label="検索語句"]'
+        # time.sleep(random.randint(15, 20))
+        # driver.find_element(By.XPATH,search_btn_class).click()
+        # time.sleep(random.randint(3, 6))
+        # driver.find_element(By.XPATH,search_field_class).click()
+        # time.sleep(random.randint(3, 6))
         action = webdriver.ActionChains(driver)
+        action.send_keys(Keys.ENTER).perform()
+        time.sleep(random.randint(3, 6))
         action.send_keys(Keys.ENTER).perform()
         logger.info(f'{email}:タグ検索OK')
 
